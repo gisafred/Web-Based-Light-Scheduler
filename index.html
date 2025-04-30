@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Scheduler</title>
+
+    <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(to right, #ece9e6, #ffffff);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+      
+        .scheduler-card {
+          background-color: #fff;
+          padding: 30px 40px;
+          border-radius: 20px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+          text-align: center;
+          width: 350px;
+        }
+      
+        .scheduler-card h2 {
+          margin-bottom: 25px;
+          font-size: 26px;
+          color: #333;
+        }
+      
+        .scheduler-card label {
+          display: block;
+          margin-bottom: 15px;
+          font-size: 16px;
+          color: #555;
+        }
+      
+        .scheduler-card input[type="time"] {
+          padding: 8px 10px;
+          font-size: 15px;
+          border-radius: 10px;
+          border: 1px solid #ccc;
+          margin-top: 5px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+      
+        .scheduler-card button {
+          margin-top: 20px;
+          padding: 10px 20px;
+          font-size: 16px;
+          background: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+      
+        .scheduler-card button:hover {
+          background: #45a049;
+        }
+      </style>
+      
+    
+</head>
+<body>
+    <div class="scheduler-card">
+        <h2>Scheduler Light</h2>
+        <label>On Time:
+          <input type="time" id="onTime">
+        </label>
+        <label>Off Time:
+          <input type="time" id="OffTime">
+        </label>
+        <button onclick="submitSchedule()">Submit</button>
+      </div>
+      
+
+    <script>
+        const ws = new WebSocket("ws://localhost:6789");
+        
+        function submitSchedule(){
+            const on = document.getElementById("OnTime").value;
+            const off= document.getElementById("offTime").value;
+            ws.send(JSON.stringify({on,off}));
+            alert("Schedule Sent!");
+            
+        }
+    </script>
+   
+</body>
+</html>
